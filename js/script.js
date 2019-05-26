@@ -27,10 +27,22 @@ let total = 0;
 const cost = $('<div id="total">Your total cost is($); </div'); $('.activities').append(cost);
 const totalCost = $('<div id="total"></div>'); $('.activities').append(totalCost);
 
-const warningMessage = $(<div please enter a valid name></div>);
+const nameWarning = $('<div please enter a valid name></div>');
+const emailWarning = $('<div please enter a valid email></div>');
 const nameValidation = /[A-Z][a-zA-Z][^#&<>\"~;$^%{}?]{1,20}$/g;
-const emailValidation = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/i;
+const emailValidation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
+const creditCardValidation = /^\d{13,16}$/;
+const creditCardWarning = $('<div Please enter a valid account number></div>');
+const cvvValidation = /^[0-9]{3}$/;
+const cvvWarning = ('<div please enter a valid three digit cvv number></div>');
+const zipCodeValidation = /^\d{5}$/;
+const zipWarning = ('<div please enter a valid five digit zip code></div>');
+ 
+const noCheckbox = $('<div There must be at least one checkbox selected></div>');
+$(".activities").append(noCheckbox);
+noCheckbox.css({color: 'red'});
+noCheckbox.hide();
 
 $("#title").change(function() {
     if ($('#title').val() === "other") {
@@ -186,20 +198,73 @@ $(payment).change(function() {
 
 $("#name").change(function() {
     if (nameValidation.test($(this.val))) {
-        warningMessage.hide();
+        $('#name').css({"border-color": 'green'});
     } else {
-        warningMessage.show()
         $('#name').css({"border-color": 'red'});
     }
 });
    
 $("#mail").change(function() {
-    if (emailValidation.test($(this.val))) {
-        warningMessage.hide();
+    if (emailValidation.test($(this).val())) {
+        emailWarning.hide();
+        $('#mail').css({"border-color": 'green'});
     } else {
-        warningMessage.show()
-        $('#name').css({"border-color": 'red'});
+        emailWarning.show()
+        $('#mail').css({"border-color": 'red'});
     }
+});
+
+$("#cc-num").change(function() {
+    if (creditCardValidation.test($(this).val())) {
+        creditCardWarning.hide();
+        $('#cc-num').css({"border-color": 'green'});
+    } else {
+        creditCardWarning.show()
+        $('#cc-num').css({"border-color": 'red'});
+    }
+});
+
+$("#cvv").change(function() {
+    if (cvvValidation.test($(this).val())) {
+        $('#cvv').css({"border-color": 'green'});
+    } else {
+        $('#cvv').css({"border-color": 'red'});
+    }
+});
+
+$("#zip").change(function() {
+    if (zipCodeValidation.test($(this).val())) {
+        $('#zip').css({"border-color": 'green'});
+    } else {
+        $('#zip').css({"border-color": 'red'});
+    }
+});
+
+$('.container').on('click', 'button', function(event) {
+    event.preventDefault();
+          
+        if (nameValidation.test($(this.val)) || (nameValidation === '')) {
+           alert('Please enter a valid name');
+        }
+
+        if (emailValidation.test($(this.val)) || (emailValidation === '')) {
+            alert('Please enter a valid email');
+         } 
+         if (total === 0) {
+             alert('you must select atleast one checkbox for register for activities');
+         }
+
+         if (creditCardValidation.test($(this.val)) || (creditCardValidation === '')) {
+            alert('Please enter a valid credit card account number');
+         } 
+
+         if (zipCodeValidation.test($(this.val)) || (zipCodeValidation === '')) {
+            alert('Please enter a five digit zip code');
+         } 
+
+         if (cvvValidation.test($(this.val)) || (cvvValidation === '')) {
+            alert('Please enter a valid three digit cvv number');
+         } 
 });
 
 
