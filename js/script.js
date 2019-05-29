@@ -1,4 +1,6 @@
 const jspuns = $('#design option:eq(1)');
+// variables I will use for this project
+
 const heartjs = $('#design option:eq(2)');
 const color = $('#color');
 const colorLabel = $('#color').prev();
@@ -44,6 +46,8 @@ $(".activities").append(noCheckbox);
 noCheckbox.css({color: 'red'});
 noCheckbox.hide();
 
+const button = document.querySelector("#registerButton");
+// a text box will appear if you choose other for job role
 $("#title").change(function() {
     if ($('#title').val() === "other") {
         $('#other-job').show();
@@ -51,7 +55,7 @@ $("#title").change(function() {
         $("#other-job").hide();
     }
 });
-
+// specific colors will appear deppending on the design you choose
 $("#design").change(function() {
     if ($('#design').val() === "js puns") {
         color.show();
@@ -79,6 +83,8 @@ $("#design").change(function() {
         }
     }
 });
+/** functions that make sure you can't select two workshops with the same date and
+ and time. It also display your total cost*/
 
 $(framework).change(function() {
     if ((framework).is(':checked')) {
@@ -171,7 +177,7 @@ $(npm).change(function() {
         totalCost.text(total);
     }
 });
-
+//information will display depending on payment method selected
 $(payment).change(function() {
     if($(this).val() === "credit card") {
         $("#credit-card").show();
@@ -195,6 +201,9 @@ $(payment).change(function() {
         $("p:eq(1)").show();
     }
 });
+/** these functions make sure you're entering valid information for the input fields.
+ It will turn green if it's correct, and turn red if it's incorrect.
+ */
 
 $("#name").change(function() {
     if (nameValidation.test($(this.val))) {
@@ -214,13 +223,13 @@ $("#mail").change(function() {
     }
 });
 
-$("#cc-num").change(function() {
+$("#num").change(function() {
     if (creditCardValidation.test($(this).val())) {
         creditCardWarning.hide();
-        $('#cc-num').css({"border-color": 'green'});
+        $('#num').css({"border-color": 'green'});
     } else {
         creditCardWarning.show()
-        $('#cc-num').css({"border-color": 'red'});
+        $('#num').css({"border-color": 'red'});
     }
 });
 
@@ -240,31 +249,35 @@ $("#zip").change(function() {
     }
 });
 
-$('.container').on('click', 'button', function(event) {
+/** the event listener to activate the register button. This will display error alerts
+ for incorrect information entered, and a success alert if the form is 
+ filled out correctly.
+ */
+
+button.addEventListener("click", function() {
     event.preventDefault();
+    if (total === 0) {
+     alert('select atleast one checkbox'); 
+    }  
+
+    $([$('#name'), mail, num, zip, cvv]).each(function() {
           
-        if (nameValidation.test($(this.val)) || (nameValidation === '')) {
-           alert('Please enter a valid name');
-        }
+      if (($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
 
-        if (emailValidation.test($(this.val)) || (emailValidation === '')) {
-            alert('Please enter a valid email');
-         } 
-         if (total === 0) {
-             alert('you must select atleast one checkbox for register for activities');
-         }
+         alert('Please make sure you have a valid ' +  $(this).prev().text());
+         
+      }
 
-         if (creditCardValidation.test($(this.val)) || (creditCardValidation === '')) {
-            alert('Please enter a valid credit card account number');
-         } 
+      if (((!($(name).val()==='' )) && !($(name).css("border-color")==="rgb(255, 0, 0)" )) && 
+      (!($(mail).val()==='' ) && !($(mail).css("border-color")==="rgb(255, 0, 0)" )) &&  
+      (!($(num).val()==='' ) && !($(num).css("border-color")==="rgb(255, 0, 0)" )) && 
+      (!($(zip).val()==='' ) && !($(zip).css("border-color")==="rgb(255, 0, 0)" )) && 
+      (!($(cvv).val()==='' ) && !($(cvv).css("border-color")==="rgb(255, 0, 0)" )) &&  
+      (total > 0)   ){
+            
+        
+        alert('Your form has been submitted');
+      }
 
-         if (zipCodeValidation.test($(this.val)) || (zipCodeValidation === '')) {
-            alert('Please enter a five digit zip code');
-         } 
-
-         if (cvvValidation.test($(this.val)) || (cvvValidation === '')) {
-            alert('Please enter a valid three digit cvv number');
-         } 
+  });
 });
-
-
