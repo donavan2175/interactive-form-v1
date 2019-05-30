@@ -1,6 +1,6 @@
-const jspuns = $('#design option:eq(1)');
 // variables I will use for this project
 
+const jspuns = $('#design option:eq(1)');
 const heartjs = $('#design option:eq(2)');
 const color = $('#color');
 const colorLabel = $('#color').prev();
