@@ -15,7 +15,9 @@ const dimGrey = $('#color option:eq(5)');
 $('#name').focus();
 $('#other-job').hide();
 $('#payment option:eq(1)').prop('selected', true);
-
+$('#payment option:eq(0)').hide();
+$("p:eq(0)").hide();
+$("p:eq(1)").hide();
 
 const all = $('input[name=all]');
 const framework = $('input[name=js-frameworks]');
@@ -68,6 +70,8 @@ $("#design").change(function() {
         dimGrey.hide();
     } else {
         if ($('#design').val() === "heart js") {
+            $('#color option:eq(4)').prop('selected', true);
+
             color.show();
             colorLabel.show();
             tomato.show();
@@ -144,12 +148,12 @@ $(node).change(function() {
 
 $(all).change(function() {
     if((all).is(':checked')) {
-        total +=100;
+        total +=200;
         totalCost.text(total);
         cost.show();
         totalCost.show();
     } else {
-        total -=100;
+        total -=200;
         totalCost.text(total);
     }
 });
@@ -185,7 +189,7 @@ $(payment).change(function() {
         $("p:eq(1)").hide();
     }
 });
-   
+
 $(payment).change(function() {
     if($(this).val() === "paypal") {
         $('p:eq(0)').show();
@@ -259,14 +263,15 @@ button.addEventListener("click", function() {
     if (total === 0) {
      alert('select atleast one checkbox'); 
     }  
+    if ($("#credit-card").is(':visible') ) {
+        $([$('#name'), mail, num, zip, cvv]).each(function() {
+            
+        if (($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
 
-    $([$('#name'), mail, num, zip, cvv]).each(function() {
-          
-      if (($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
-
-         alert('Please make sure you have a valid ' +  $(this).prev().text());
-         
-      }
+            alert('Please make sure you have a valid ' +  $(this).prev().text());
+        }   
+      
+    
 
       if (((!($(name).val()==='' )) && !($(name).css("border-color")==="rgb(255, 0, 0)" )) && 
       (!($(mail).val()==='' ) && !($(mail).css("border-color")==="rgb(255, 0, 0)" )) &&  
@@ -276,8 +281,59 @@ button.addEventListener("click", function() {
       (total > 0)   ){
             
         
-        alert('Your form has been submitted');
+        setTimeout(function() {
+            window.location.reload();
+            });   
       }
-
+    
   });
+}
+
+if ($("p:eq(0)").is(':visible') ) {
+    $([$('#name'), mail]).each(function() {
+        
+    if (($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
+
+        alert('Please make sure you have a valid ' +  $(this).prev().text());
+    }   
+  
+
+
+  if (((!($(name).val()==='' )) && !($(name).css("border-color")==="rgb(255, 0, 0)" )) && 
+  (!($(mail).val()==='' ) && !($(mail).css("border-color")==="rgb(255, 0, 0)" )) &&  
+  (total > 0) ) {
+        
+    
+    setTimeout(function() {
+        window.location.reload();
+        });   
+    }
+ });
+}
+
+if ($("p:eq(1)").is(':visible') ) {
+    $([$('#name'), mail]).each(function() {
+        
+    if (($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
+
+        alert('Please make sure you have a valid ' +  $(this).prev().text());
+    }   
+  
+
+
+  if (((!($(name).val()==='' )) && !($(name).css("border-color")==="rgb(255, 0, 0)" )) && 
+  (!($(mail).val()==='' ) && !($(mail).css("border-color")==="rgb(255, 0, 0)" )) &&  
+  (total > 0) ) {
+        
+    
+    setTimeout(function() {
+        window.location.reload();
+        });   
+    }
+ });
+}
 });
+
+
+
+
