@@ -211,44 +211,69 @@ $(payment).change(function() {
 
 $("#name").change(function() {
     if (nameValidation.test($(this.val))) {
+        $('#name').formError({
+            remove:true,
+            successImage: {enabled:false}
+         });
         $('#name').css({"border-color": 'green'});
     } else {
+        $("#name").formError("Please enter a valid name");
         $('#name').css({"border-color": 'red'});
     }
 });
    
 $("#mail").change(function() {
     if (emailValidation.test($(this).val())) {
+        $('#mail').formError({
+            remove:true,
+            successImage: {enabled:false}
+         });
         emailWarning.hide();
         $('#mail').css({"border-color": 'green'});
     } else {
         emailWarning.show()
+        $("#mail").formError("Please enter a valid email address");
         $('#mail').css({"border-color": 'red'});
     }
 });
 
 $("#num").change(function() {
     if (creditCardValidation.test($(this).val())) {
+        $('#num').formError({
+            remove:true,
+            successImage: {enabled:false}
+         });
         creditCardWarning.hide();
         $('#num').css({"border-color": 'green'});
     } else {
         creditCardWarning.show()
+        $('#num').formError("card number must be 16 digits");
         $('#num').css({"border-color": 'red'});
     }
 });
 
 $("#cvv").change(function() {
     if (cvvValidation.test($(this).val())) {
+        $('#cvv').formError({
+            remove:true,
+            successImage: {enabled:false}
+         });
         $('#cvv').css({"border-color": 'green'});
     } else {
+        $('#cvv').formError("please enter a 3 digit cvv number");
         $('#cvv').css({"border-color": 'red'});
     }
 });
 
 $("#zip").change(function() {
     if (zipCodeValidation.test($(this).val())) {
+        $('#zip').formError({
+            remove:true,
+            successImage: {enabled:false}
+         });
         $('#zip').css({"border-color": 'green'});
     } else {
+        $('#zip').formError("please enter a 5 digit zip code");
         $('#zip').css({"border-color": 'red'});
     }
 });
@@ -263,15 +288,14 @@ button.addEventListener("click", function() {
     if (total === 0) {
      alert('select atleast one checkbox'); 
     }  
+    
     if ($("#credit-card").is(':visible') ) {
         $([$('#name'), mail, num, zip, cvv]).each(function() {
             
-        if (($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
 
-            alert('Please make sure you have a valid ' +  $(this).prev().text());
-        }   
-      
+
     
+
 
       if (((!($(name).val()==='' )) && !($(name).css("border-color")==="rgb(255, 0, 0)" )) && 
       (!($(mail).val()==='' ) && !($(mail).css("border-color")==="rgb(255, 0, 0)" )) &&  
@@ -289,50 +313,19 @@ button.addEventListener("click", function() {
   });
 }
 
-if ($("p:eq(0)").is(':visible') ) {
-    $([$('#name'), mail]).each(function() {
-        
-    if (($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
 
-        alert('Please make sure you have a valid ' +  $(this).prev().text());
-    }   
+
+
+ });
+
+
+
   
 
 
-  if (((!($(name).val()==='' )) && !($(name).css("border-color")==="rgb(255, 0, 0)" )) && 
-  (!($(mail).val()==='' ) && !($(mail).css("border-color")==="rgb(255, 0, 0)" )) &&  
-  (total > 0) ) {
-        
-    
-    setTimeout(function() {
-        window.location.reload();
-        });   
-    }
- });
-}
-
-if ($("p:eq(1)").is(':visible') ) {
-    $([$('#name'), mail]).each(function() {
-        
-    if (($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
-
-        alert('Please make sure you have a valid ' +  $(this).prev().text());
-    }   
   
+ 
 
-
-  if (((!($(name).val()==='' )) && !($(name).css("border-color")==="rgb(255, 0, 0)" )) && 
-  (!($(mail).val()==='' ) && !($(mail).css("border-color")==="rgb(255, 0, 0)" )) &&  
-  (total > 0) ) {
-        
-    
-    setTimeout(function() {
-        window.location.reload();
-        });   
-    }
- });
-}
-});
 
 
 
